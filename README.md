@@ -1,57 +1,94 @@
-### Introduction
 
-Distributed Denial of Service (DDoS) attacks are significant threats to the stability and reliability of online services. Detecting and mitigating these attacks is crucial to maintaining the integrity of networks and services. This project focuses on classifying DDoS attacks using various machine learning models. The dataset used for this project is the IDS 2017 dataset, which is publicly available and provides a comprehensive set of features for detecting DDoS attacks.
+# **DDoS Detection using Machine Learning Models**
 
-The project involves several key steps: data preprocessing, exploration, splitting, model training, evaluation, and comparison. Each step is crucial to building an effective DDoS detection model. We employ multiple machine learning algorithms, including Random Forest, Logistic Regression, and Neural Networks, to classify the attacks and evaluate their performance using various metrics.
+This project implements multiple machine learning models for detecting Distributed Denial of Service (DDoS) attacks. The models used include Random Forest, Logistic Regression, Multilayer Perceptron (Neural Network), and Naive Bayes. The dataset includes network traffic features that help identify whether a given traffic pattern is benign or part of a DDoS attack.
 
-### Table of Contents
 
-1. **Importing Libraries**
-2. **Data Pre-processing**
-3. **Data Exploring**
-4. **Data Splitting**
-5. **Model Training**
-   - Random Forest
-   - Logistic Regression
-   - Neural Network
-6. **Model Evaluation**
-   - Accuracy
-   - F1 Score
-   - Recall
-   - Precision
-   - Confusion Matrix
-7. **Model Comparison**
 
-### Chapters Overview
+## **Project Overview**
 
-#### 1. Importing Libraries
-This chapter covers the importation of essential libraries used for data manipulation, visualization, model training, and evaluation. Libraries such as Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn are utilized.
+The goal of this project is to build a machine learning pipeline for detecting DDoS attacks based on network traffic data. The dataset includes various network-related features such as packet size, duration, and source/destination port information. By training multiple machine learning models on this dataset, the system learns to classify whether a given traffic pattern is benign or malicious (DDoS attack).
 
-#### 2. Data Pre-processing
-This section involves preparing the data for analysis by cleaning and transforming it. Steps include handling missing values, converting categorical labels to numerical values, and ensuring data types are appropriate for analysis.
+### **Key Features of the Project**:
+- Data preprocessing, including feature scaling and splitting into training and test sets.
+- Training multiple models for classification:
+  - Random Forest
+  - Logistic Regression
+  - Multilayer Perceptron (Neural Network)
+  - Gaussian Naive Bayes
+- Evaluation of models based on accuracy, F1 score, precision, recall, and ROC-AUC curve.
+- Visualizations to aid model comparison and performance analysis.
 
-#### 3. Data Exploring
-Data exploration involves generating descriptive statistics and visualizations to understand the distribution and relationships within the dataset. This step helps in identifying important features and potential issues with the data.
+---
 
-#### 4. Data Splitting
-In this chapter, the data is split into training and testing sets. This step is crucial for evaluating the model's performance on unseen data, ensuring that the model generalizes well.
 
-#### 5. Model Training
-This section covers the training of different machine learning models:
-   - **Random Forest**: An ensemble method that uses multiple decision trees to improve predictive accuracy.
-   - **Logistic Regression**: A statistical model used for binary classification.
-   - **Neural Network**: A computational model inspired by the human brain, capable of capturing complex patterns in the data.
+### **Dataset**:
+- The dataset used for training the models is assumed to be a CSV file containing network traffic data with various features.
+- **Example Data Columns**:
+  - `Destination Port`
+  - `Flow Duration`
+  - `Total Fwd Packets`
+  - `Total Backward Packets`
+  - `Label` (BENIGN or DDoS attack)
 
-#### 6. Model Evaluation
-The trained models are evaluated using various metrics:
-   - **Accuracy**: The proportion of correctly predicted instances.
-   - **F1 Score**: The harmonic mean of precision and recall, useful for imbalanced datasets.
-   - **Recall**: The ability of the model to identify all relevant instances.
-   - **Precision**: The accuracy of the positive predictions.
-   - **Confusion Matrix**: A table that describes the performance of the classification model.
+You can load the dataset as follows:
 
-#### 7. Model Comparison
-In this chapter, the performance of the different models is compared using ROC curves and AUC scores. This comparison helps in identifying the best-performing model for DDoS attack classification.
 
-### Conclusion
-The project systematically addresses the detection and classification of DDoS attacks using multiple machine learning models. By following the structured approach outlined in the chapters, we aim to build a robust model that can effectively distinguish between benign and malicious network traffic.
+## **Machine Learning Models Used**
+
+The following machine learning models are implemented in the project:
+
+1. **Random Forest Classifier**:
+   - An ensemble learning method that builds multiple decision trees and aggregates their results for classification.
+   - Trained using bagging to ensure diversity in the decision trees.
+
+2. **Logistic Regression**:
+   - A linear model used for binary classification tasks. It predicts the probability that an instance belongs to a certain class.
+   
+3. **Multilayer Perceptron (MLP)**:
+   - A neural network model with one or more hidden layers.
+   - Each neuron applies an activation function (e.g., ReLU) to its weighted inputs to produce an output.
+
+4. **Gaussian Naive Bayes**:
+   - A probabilistic classifier based on Bayes' Theorem. It assumes that features follow a Gaussian distribution and are conditionally independent given the class label.
+
+---
+
+## **Model Evaluation**
+
+The models are evaluated using various performance metrics:
+- **Accuracy**: The proportion of correctly classified instances.
+- **F1 Score**: The harmonic mean of precision and recall, giving an idea of the model's performance in terms of both false positives and false negatives.
+- **Precision**: The number of true positive predictions out of all positive predictions.
+- **Recall**: The number of true positive predictions out of all actual positives.
+- **ROC-AUC**: A performance measure that summarizes the trade-off between true positive rate and false positive rate.
+
+Here’s an example of how the model evaluation is performed:
+
+```python
+# Random Forest Model Evaluation
+y_pred_rf = rf_model.predict(X_test)
+accuracy_rf = accuracy_score(y_test, y_pred_rf)
+print(f"Random Forest Accuracy: {accuracy_rf:.4f}")
+
+# ROC Curve for Random Forest
+rf_proba = rf_model.predict_proba(X_test)
+fpr, tpr, thresholds = roc_curve(y_test, rf_proba[:, 1])
+plt.plot(fpr, tpr, label='Random Forest')
+plt.legend()
+plt.show()
+```
+
+---
+
+## **Results**
+
+After training the models, their performance is compared based on the metrics mentioned earlier. The ROC curve is used to visualize and compare the true positive and false positive rates of the models.
+![image](https://github.com/user-attachments/assets/527fa0ca-1912-43ab-a353-65c06245ad93)
+
+
+
+
+
+---
+
